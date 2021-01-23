@@ -11,7 +11,7 @@
  Target Server Version : 80020
  File Encoding         : 65001
 
- Date: 21/01/2021 09:35:33
+ Date: 23/01/2021 11:00:12
 */
 
 SET NAMES utf8mb4;
@@ -57,8 +57,8 @@ DROP TABLE IF EXISTS `gabarito`;
 CREATE TABLE `gabarito`  (
   `Id` int NOT NULL,
   `ProvaId` int NOT NULL,
-  `Pergunta` int NULL DEFAULT NULL,
-  `Resposta` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `Pergunta` int NOT NULL,
+  `Resposta` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
@@ -89,6 +89,7 @@ DROP TABLE IF EXISTS `respostaaluno`;
 CREATE TABLE `respostaaluno`  (
   `Id` int NOT NULL,
   `AlunoProvaId` int NOT NULL,
+  `Pergunta` int NOT NULL,
   `Resposta` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`Id`) USING BTREE,
   INDEX `fk_alunoprovaid_alunoprova`(`AlunoProvaId`) USING BTREE
