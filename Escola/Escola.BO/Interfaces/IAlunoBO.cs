@@ -11,5 +11,8 @@ namespace Escola.BO.Interfaces
         Task<string> ResponderProva(string nomeAluno, string nomeProva, List<RespostaAluno> respostaRequest);
         Task<Aluno> MediaAluno(string nomeAluno);
         Task<List<Aluno>> Aprovados();
+        Task<double> CalcularMediaTodasProva(int idAluno);
+        Task<double> CalcularNotaProva(int idProva, int idAlunoProva);
+        Task<List<AlunoProva>> ValidarProvaRespondida(int idAluno, int idProva);
     }
 }

@@ -117,10 +117,13 @@ namespace Escola.BO
             return alunosAprovados;
         }
 
-        protected async Task<double> CalcularMediaTodasProva(int idAluno)
+        public async Task<double> CalcularMediaTodasProva(int idAluno)
         {
             var alunoProvas = await _alunoProvaDao.BuscarTodosPorId(idAluno);
             var provasAtivas = await _provaBo.BuscarTodasProva();
+
+            if (alunoProvas == null || provasAtivas == null)
+                return 0d;
 
             var somaTotalNotaProvas = 0.0;
             var quantidadeTotalProvas = provasAtivas.Count();
@@ -140,7 +143,7 @@ namespace Escola.BO
             return Math.Round(notaFinal, 2);
         }
 
-        protected async Task<double> CalcularNotaProva(int idProva, int idAlunoProva)
+        public async Task<double> CalcularNotaProva(int idProva, int idAlunoProva)
         {
             var nota = 0.0;
 
@@ -166,7 +169,7 @@ namespace Escola.BO
             return Math.Round(nota, 2);
         }
 
-        protected async Task ValidarProvaRespondida(int idAluno, int idProva)
+        public async Task<List<AlunoProva>> ValidarProvaRespondida(int idAluno, int idProva)
         {
             var alunoProvas = await _alunoProvaDao.BuscarTodosPorId(idAluno, idProva);
 
@@ -177,7 +180,14 @@ namespace Escola.BO
                     prova.Ativo = false;
                     await _alunoProvaDao.Atualizar(prova);
                 }
+
+                return alunoProvas;
             }
+            else
+            {
+                return new List<AlunoProva>();
+            }
+            
         }
     }
 }
