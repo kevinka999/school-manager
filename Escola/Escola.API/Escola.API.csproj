@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.2.7" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Escola.BO\Escola.BO.csproj" />
+    <ProjectReference Include="..\Escola.DAO\Escola.DAO.csproj" />
     <ProjectReference Include="..\Escola.Dominio\Escola.Dominio.csproj" />
   </ItemGroup>
 

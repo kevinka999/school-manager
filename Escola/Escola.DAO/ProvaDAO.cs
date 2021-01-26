@@ -31,6 +31,8 @@ namespace Escola.DAO
 
         public async Task<Prova> Buscar(int idProva) => await _context.Prova.FirstOrDefaultAsync(x => x.Id == idProva && x.Ativo);
 
+        public async Task<Prova> Buscar(string nomeProva) => await _context.Prova.FirstOrDefaultAsync(x => x.Nome == nomeProva && x.Ativo);
+
         public async Task<List<Prova>> BuscarTodos() => await _context.Prova.Where(x => x.Ativo).ToListAsync();
     }
 }

@@ -1,15 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Escola.BO;
+using Escola.BO.Interfaces;
+using Escola.DAO;
+using Escola.DAO.Interfaces;
+using Escola.Dominio;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace Escola.API
 {
@@ -26,6 +25,24 @@ namespace Escola.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            
+            services.AddDbContext<DbContextConfiguration>(options => options.UseMySql(Configuration.GetConnectionString("DBPadraoMySql")));
+
+            services.AddScoped<IAlunoDAO, AlunoDAO>();
+            services.AddScoped<IAlunoProvaDAO, AlunoProvaDAO>();
+            services.AddScoped<IGabaritoDAO, GabaritoDAO>();
+            services.AddScoped<IProvaDAO, ProvaDAO>();
+            services.AddScoped<IRespostaAlunoDAO, RespostaAlunoDAO>();
+
+            services.AddScoped<IAlunoBO, AlunoBO>();
+            services.AddScoped<IProvaBO, ProvaBO>();
+
+            services.AddCors(x => x.AddPolicy("MyPolicy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,6 +52,8 @@ namespace Escola.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("MyPolicy");
 
             app.UseHttpsRedirection();
 

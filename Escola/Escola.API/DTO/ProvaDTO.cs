@@ -7,7 +7,7 @@ namespace Escola.API.DTO
 {
     public class ProvaDTO
     {
-        public string NomeProva { get; set; }
+        public string Nome { get; set; }
         public List<GabaritoDTO> Gabarito { get; set; }
     }
 

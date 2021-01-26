@@ -17,13 +17,13 @@ namespace Escola.API.Controllers
 
         [HttpPost]
         [Route("Criar")]
-        public async Task<string> Criar(ProvaDTO provaRequest)
+        public async Task<string> Criar([FromBody] ProvaDTO provaRequest)
         {
-            if (provaRequest != null)
+            if (provaRequest == null)
                 return "Corpo da requisição invalido.";
 
-            if (provaRequest.Gabarito.Count() == 0)
-                return "A prova devera conter informações de gabarito.";
+            if (provaRequest.Gabarito == null || provaRequest.Gabarito.Count() == 0)
+                return "O corpo devera conter informações de gabarito.";
 
             var mensagemRetorno = string.Empty;
 
@@ -31,7 +31,7 @@ namespace Escola.API.Controllers
             {
                 var prova = new Prova()
                 {
-                    Nome = provaRequest.NomeProva,
+                    Nome = provaRequest.Nome,
                     QtdPerguntas = provaRequest.Gabarito.Count()
                 };
 
@@ -46,36 +46,32 @@ namespace Escola.API.Controllers
                     });
                 }
 
-                await _provaBo.CriarProva(prova, gabaritos);
+                mensagemRetorno = await _provaBo.CriarProva(prova, gabaritos);
             }
             catch
             {
                 mensagemRetorno = "Houve um problema ao cadastrar prova.";
             }
-            finally
-            {
-                mensagemRetorno = "Prova cadastrada com sucesso!";
-            }
 
             return mensagemRetorno;   
         }
-        [HttpPut("{idProva}")]
+
+        [HttpPost]
         [Route("Inativar")]
-        public async Task<string> Inativar(int idProva)
+        public async Task<string> Inativar([FromBody] ProvaDTO provaRequest)
         {
+            if (provaRequest == null || provaRequest.Nome == string.Empty)
+                return "Corpo da requisição invalido.";
+
             var mensagemRetorno = string.Empty;
 
             try 
             {
-                await _provaBo.InativarProva(idProva);
+                mensagemRetorno = await _provaBo.InativarProva(provaRequest.Nome);
             }
             catch
             {
                 mensagemRetorno = "Houve um problema ao inativar prova.";
-            }
-            finally
-            {
-                mensagemRetorno = "Prova inativada com sucesso!";
             }
 
             return mensagemRetorno;

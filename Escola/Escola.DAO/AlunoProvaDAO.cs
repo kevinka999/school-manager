@@ -21,10 +21,24 @@ namespace Escola.DAO
             return alunoProva.Entity;
         }
 
+        public async Task<AlunoProva> Atualizar(AlunoProva alunoProvaRequest)
+        {
+            var alunoProva = _context.AlunoProva.Update(alunoProvaRequest);
+            await _context.SaveChangesAsync();
+
+            return alunoProva.Entity;
+        }
+
+        public async Task<List<AlunoProva>> BuscarTodosPorId(int idAluno) => await _context.AlunoProva
+                                                                                    .Include(x => x.Aluno)
+                                                                                    .Include(x => x.Prova)
+                                                                                    .Where(x => x.AlunoId == idAluno && x.Ativo)
+                                                                                    .ToListAsync();
+
         public async Task<List<AlunoProva>> BuscarTodosPorId(int idAluno, int idProva) => await _context.AlunoProva
-                                                                                                .Include(x => x.Aluno)
-                                                                                                .Include(x => x.Prova)
-                                                                                                .Where(x => x.AlunoId == idAluno && x.ProvaId == idProva)
-                                                                                                .ToListAsync();
+                                                                                    .Include(x => x.Aluno)
+                                                                                    .Include(x => x.Prova)
+                                                                                    .Where(x => x.AlunoId == idAluno && x.ProvaId == idProva && x.Ativo)
+                                                                                    .ToListAsync();
     }
 }

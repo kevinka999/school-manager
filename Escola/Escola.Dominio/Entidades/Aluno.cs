@@ -6,7 +6,7 @@
 
         public string Nome { get; set; }
 
-        public float Media { get; set; }
+        public double Media { get; set; }
 
         public bool Ativo { get; set; }
     }

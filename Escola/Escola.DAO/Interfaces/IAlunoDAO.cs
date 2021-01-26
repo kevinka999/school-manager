@@ -9,6 +9,7 @@ namespace Escola.DAO.Interfaces
         Task<Aluno> Adicionar(Aluno alunoRequest);
         Task<Aluno> Atualizar(Aluno alunoRequest);
         Task<Aluno> Buscar(int idAluno);
+        Task<Aluno> Buscar(string nomeAluno);
         Task<List<Aluno>> BuscarTodos();
     }
 }

@@ -9,6 +9,7 @@ namespace Escola.DAO.Interfaces
         Task<Prova> Adicionar(Prova provaRequest);
         Task<Prova> Atualizar(Prova provaRequest);
         Task<Prova> Buscar(int idProva);
+        Task<Prova> Buscar(string nomeProva);
         Task<List<Prova>> BuscarTodos();
     }
 }

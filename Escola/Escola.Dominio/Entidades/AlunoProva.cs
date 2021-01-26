@@ -11,6 +11,7 @@ namespace Escola.Dominio.Entidades
 
         [ForeignKey("Prova")]
         public int ProvaId { get; set; }
+        public bool Ativo { get; set; }
 
         public virtual Aluno Aluno { get; set; }
         public virtual Prova Prova { get; set; }
