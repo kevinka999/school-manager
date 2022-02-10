@@ -1,47 +1,33 @@
-# Escola API
-Escola API Restful tem a funcionalidade de gerenciar provas de uma escola e seus respectivos alunos.
-A aplicação foi desenvolvida inteiramente **.NET**.
+# Summary
+This API is responsible for dealing with essays from a school and its respective students and was built using .NET Core
 
-## Banco de Dados
-Escola API utiliza **MySql** padrão para banco de dados.
-Uma base modelo do sistema está disponivel em `\\Database\escola_backup.sql`.
+## Database
+This API is using **MySql** as database.
+You can get a script model for the database on this path `\\Database\escola_backup.sql`.
 
 ![Alt text](/Database/modelo_relacional.jpg?raw=true "Modelo relacional")
 
-## Testes automatizados
-Testes unitários da aplicação desenvolvido em XUnit com **NSubstitute** para Mock.
+## Unit test
+The unit test for this application was developed by using **XUnit** with **NSubstitute** for mocking.
 
 ***
 
-# Guia de instalação
-Para rodar a aplicação localmente, iremos utilizar o serviço IIS Express da Microsoft, para isso, você irá precisar:
-
-* Visual Studio 2010 > ou superior
-* .NET Core SDK 3.1
-* MySql Server
-
-A aplicação utiliza dependência de terceiros instaladas via gerenciador de pacotes NuGet próprio do Visual Studio.
-* Pomelo.EntityFrameWorkCore.Mysql
-* NSubstitute
-
-## Passo-a-passo
-1. Clone o repositorio Escola API em um local de sua preferência.
-2. Restaure a base MySql da aplicação em um servidor local ou de sua preferencia MySql. `\\Database\escola_backup.sql`
-3. Abra a solution do projeto `\\Escola\Escola.sln` com o Visual Studio.
-4. Em "Solution Explorer", clique com o botão direito na solution e selecione a opção "Build All" para buildar os projetos e suas respectivas dependência.
-5. Em `\\Escola\Escola.API\appsetings.json` altere o parâmetro "DBPadraoMySql" com suas respectivas informações da base.
-6. Rode a aplicação utilizando IIS Express
+# How to run it
+1. Clone the repository in a location of your choice.
+2. Restore the MySql database of the application on your MySql local server. `\\Database\school_backup.sql`
+3. Open the `\\Escola\Escola.sln` project solution with Visual Studio.
+4. In "Solution Explorer", right-click on the solution and select the "Build All" option to build the projects and their respective dependencies.
+5. In `\\Escola\Escola.API\appsetings.json` change the parameter "DBPadraoMySql" for you respective database information.
+6. Run the application using IIS or IIS Express
 
 ***
 
-# Métodos
-Para acessar os métodos da API, você deverá pegar o caminho https da sua aplicação `https:\\ip:porta` e adicionar o sufixo e suas respectivas informações. Exemplo: `https:\\127.0.0.1:3000\api\Aluno\Criar`
-
-## Prova
-### Criar
-* Sufixo: `api\Prova\Criar`
-* Tipo: **POST**
-* Corpo Requisição: 
+# Endpoint mapping
+## Essay (Prova)
+### Create an essay
+* Route: `api\Prova\Criar`
+* Method Type: **POST**
+* Body: 
 ```json
 {
     "Nome" : string
@@ -57,62 +43,62 @@ Para acessar os métodos da API, você deverá pegar o caminho https da sua apli
 	]
 }
 ```
-* Resposta Requisição:
+* Response:
 ```json
   string
 ```
 
-### Inativar
-* Sufixo: `api\Prova\Inativar`
-* Tipo: **POST**
-* Corpo Requisição: 
+### Disable an essay
+* Route: `api\Prova\Inativar`
+* Method Type: **POST**
+* Body: 
 ```json
 {
     "Nome" : string
 }
 ```
-* Resposta Requisição:
+* Response:
 ```json
   string
 ```
 
-## Aluno
-### Criar
-* Sufixo: `api\Aluno\Criar`
-* Tipo: **POST**
-* Corpo Requisição: 
+## Student (Aluno)
+### Create student
+* Route: `api\Aluno\Criar`
+* Method Type: **POST**
+* Body: 
 ```json
 {
     "Nome" : string
 }
 ```
-* Resposta Requisição:
+* Response:
 ```json
   string
 ```
 
-### Inativar
-* Sufixo: `api\Aluno\Inativar`
-* Tipo: **POST**
-* Corpo Requisição: 
+### Disable one student
+* Route: `api\Aluno\Inativar`
+* Method Type: **POST**
+* Body: 
 ```json
 {
     "Nome" : string
 }
 ```
-* Resposta Requisição:
+* Response:
 ```json
   string
 ```
 
-### Responder Prova
-* Sufixo: `api\Aluno\ResponderProva`
-* Tipo: **POST**
-* Corpo Requisição: 
+### Answer one assay
+* Route: `api\Aluno\ResponderProva`
+* Method Type: **POST**
+* Body: 
 ```json
 {
 	"NomeAluno" : string,
-    "NomeProva" : string,
+    	"NomeProva" : string,
 	"Respostas" : [
 		{
 			"Pergunta" : integer,
@@ -125,21 +111,21 @@ Para acessar os métodos da API, você deverá pegar o caminho https da sua apli
 	]
 }
 ```
-* Resposta Requisição:
+* Response:
 ```json
   string
 ```
 
-### Media
-* Sufixo: `api\Aluno\Media`
-* Tipo: **POST**
-* Corpo Requisição: 
+### Student Average
+* Route: `api\Aluno\Media`
+* Method Type: **POST**
+* Body: 
 ```json
 {
     "Nome" : string
 }
 ```
-* Resposta Requisição:
+* Response:
 ```json
 {
     "Nome" : string
@@ -147,10 +133,10 @@ Para acessar os métodos da API, você deverá pegar o caminho https da sua apli
 }
 ```
 
-### Aprovados
-* Sufixo: `api\Aluno\Aprovados`
-* Tipo: **GET**
-* Resposta Requisição:
+### Approved students
+* Route: `api\Aluno\Aprovados`
+* Method Type: **GET**
+* Body:
 ```json
 [
   {
