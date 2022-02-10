@@ -1,5 +1,5 @@
 # Summary
-This API is responsible for dealing with essays from a school and its respective students and was built using .NET Core
+This API is responsible for dealing with essays from a school and its respective students built using .NET Core
 
 ## Database
 This API is using **MySql** as database.
